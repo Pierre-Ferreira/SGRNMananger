@@ -10,7 +10,8 @@ const INITIAL_STATE = {
   email: '',
   password: '',
   user: '',
-  error: ''
+  error: '',
+  loggingInUser: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -25,7 +26,9 @@ console.log('ACTION:', action);
       return { ...state,
         user: action.payload,
         login_error: '',
-        loggingInUser: false
+        loggingInUser: false,
+        email: '',
+        password: ''
       };
     case LOGIN_USER_FAILURE:
       return { ...state,
@@ -34,7 +37,10 @@ console.log('ACTION:', action);
         loggingInUser: false
       };
     case LOGIN_USER_BUSY:
-      return { ...state, loggingInUser: true };
+      return { ...state,
+        login_error: '',
+        loggingInUser: true
+      };
     default:
       return state;
   }
