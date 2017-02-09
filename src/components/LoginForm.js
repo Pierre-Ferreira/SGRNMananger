@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card, CardSection, Input, Button } from './common';
-// import * as actions from '../actions';
+import { Text } from 'react-native';
+import { Card, CardSection, Input, Button, Spinner } from './common';
+
 import {
   emailChanged,
   passwordChanged,
@@ -22,6 +23,17 @@ class LoginForm extends Component {
       email: this.props.email,
       password: this.props.password
     });
+  }
+
+  buttonOrSpinner() {
+    if (this.props.loggingInUser) {
+      return <Spinner size={'small'} />;
+    }
+    return (
+        <Button onPressFN={this.onLoginButtonPress.bind(this)}>
+          Login
+        </Button>
+    );
   }
 
   render() {
@@ -46,21 +58,32 @@ class LoginForm extends Component {
             />
           </CardSection>
 
+          <Text style={styles.loginError}>{this.props.login_error}</Text>
+
           <CardSection>
-            <Button onPressFN={this.onLoginButtonPress.bind(this)}>
-              Login
-            </Button>
+            {this.buttonOrSpinner()}
           </CardSection>
+
         </Card>
     );
   }
 }
 
+const styles = {
+  loginError: {
+    fontSize: 20,
+    color: 'red',
+    alignSelf: 'center'
+  }
+};
+
 const MapStateToProps = (state) => {
-console.log('state.auth:', state.auth)
+console.log('state.auth:', state.auth);
   return ({
       email: state.auth.email,
-      password: state.auth.password
+      password: state.auth.password,
+      login_error: state.auth.login_error,
+      loggingInUser: state.auth.loggingInUser
   });
 };
 
