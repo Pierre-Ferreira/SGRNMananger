@@ -15,8 +15,6 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-console.log('STATE:', state);
-console.log('ACTION:', action);
   switch (action.type) {
     case EMAIL_CHANGED:
       return { ...state, email: action.payload };

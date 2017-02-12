@@ -9,7 +9,6 @@
 // };
 //
 // export default (state = INITIAL_STATE, action) => {
-// console.log('EMPState:', state);
 //   switch (action.type) {
 //       case EMP_NAME_CHANGE:
 //         return { ...state, employeeName: action.payload };
@@ -20,7 +19,8 @@
 //   }
 // };
 import {
-  EMPLOYEE_UPDATE
+  EMPLOYEE_UPDATE,
+  EMPLOYEE_CREATE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -30,13 +30,13 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
-console.log('EMPState:', state);
-console.log('EMPaction:', action);
   switch (action.type) {
     case EMPLOYEE_UPDATE:
       //action.payload  = {prop:'phone', value:'082 234 9211'}
       // Thus use key interpolation to insert the payload into state.
       return { ...state, [action.payload.prop]: action.payload.value };
+    case EMPLOYEE_CREATE:
+      return
     default:
       return state;
   }
